@@ -1,7 +1,8 @@
 # factors
 Returns an object with a list of all cobminations of factors that multiply up to a given number, from a given array of numbers.
 
-	Parameters:
+Parameters:
+
 	(1) target
 		The number (integer or float0 being sought (integer or
 		float, cientific notation accepted).
@@ -22,8 +23,9 @@ Returns an object with a list of all cobminations of factors that multiply up to
 		process.
 		
 		
-	Output:
-	An object with the following properties:
+Output:
+An object with the following properties:
+
 	(1) orirignalArray
 		The originally given array "as is".
 	(1) array
