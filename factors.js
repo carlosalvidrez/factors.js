@@ -1,6 +1,6 @@
 /*
  
-	getFactors v0.3
+	getFactors v0.42
 	Released on 2015.05.06
 	By Falconer & Loi, LLC
 
@@ -96,16 +96,21 @@ function getFactors(target, arr, precision, verbose) {
 	if(
 		target==null || target==undefined
 		|| typeof target!='number' //NEW, ADD TO factors
-		|| arr==null || arr==undefined || arr.length==0
-	){return null;}
+		|| arr==null || arr==undefined || arr.length<=1
+	) return null;
 	if(precision==null || precision==undefined) precision=2;
 	if(verbose==null || verbose==undefined) verbose=false;
 
 	// Declare, init
 	var
 		r=[]
-		, start=new Date()
-		, iteration=0
+		, aux={
+			start: new Date()
+			, iteration: 0			
+			, targetIsNegative: ( target<0 ? true : false )
+			//, balanceIsPositive: null
+			//, nextIsPositive: null
+		}
 		, results={
 			target: target
 			, originalArray: arr
@@ -114,61 +119,149 @@ function getFactors(target, arr, precision, verbose) {
 		}
 	;
 
+	// Target type
+	//if(verbose) console.log('target ('+target+') is ' + ( aux.targetIsNegative ? 'negative' : 'positive' ) );
+
 	// Keep only non-zero numbers
 	arr = arr.filter(function(e){ if(typeof e==='number' && e!=0) return true; })
+	if(arr.length<=1) return null;
 
 	// Sort
 	arr.sort(function(a,b){return a-b;});
 	results.array = arr;
 
 	// Log
-	if(verbose) console.log( 'RUN --> array: ' + arr + ' (length:' + arr.length + '); target: ' + target + '; precision: ' + precision + '; ' );
+	if(verbose) console.log( '\n\nRUN --> array: ' + arr + ' (length:' + arr.length + '); target: ' + target + '; precision: ' + precision + '; ' );
 
 	// Recursive function (main)
 	function recurse( startAt, balance, r, i ){
 
-		// If the number added up to too much, exit
-		if(balance>target) return;
+		// If the number multiplied up to too much, exit
+		if(verbose) console.log('   rescurse start... balance: ' + balance + '; arr[i+1]: ' + arr[i+1] + '; i+1: ' + (i+1) );
+		/*if(
+			//balance>target
+			balance>target
+			// If the sign of the next number is positive and target is positive
+			// or if the sign of the next number is negative and target is negative
+			&& !(
+				( arr[i+1]>=0 && balance<0 ) //targetIsNegative
+				|| ( arr[i+1]<0 && balance>=0 ) //!targetIsNegative
+			)
+		) {
+			if(verbose) console.log('balance ('+balance+') is greater than target ('+target+')');
+			return null;
+		}*/
 
-		// Start with the first/second element in the array
+		// Start with the specified element of the array
 		if(i==0) {
-			if(verbose) console.log('starting off of the first element');
+			//if(verbose) console.log('\nstarting off of element '+startAt+' (arr['+startAt+']:'+arr[startAt]+')');
 			balance=arr[startAt];
 			i=startAt+1;
+			if(verbose) console.log(
+				'\nstarting off of element '+startAt
+				+ ', adj... balance:' + balance + '; arr[i]:' + arr[i] + '; i:' + i 
+				+ ';  target:' + target
+			);
 		}//if
+/*
+//balance=balance*arr[i];
+console.log('   ' + balance);
+console.log('   ' + target);
+//console.log('   ' + balance==target);
+console.log('   ' + r);
+*/
 
-		// If the sum has added up to the original target, then push the combination into the results list
-		if(balance==target){
-			if(verbose) console.log('   bingo! (r:'+ r +'; i:'+i+').\n\n');
+		// If the sum has multiplied up to the original target
+		//then push the combination into the results list
+		if(
+			balance==target 
+			&& r.length>1
+		){
+			if(verbose) console.log('   --> Bingo! (r:'+ r +'; i:'+i+').\n\n');
 			// Insert a string with the combination of factors
 			results.combinations.push(r.toString());
 		}//if
 
 
 		// Keep looking
-		else{     
+		//else{     
 
 			// While the next array element fits and contributes to the target, recurse.
-			while(
-				i < arr.length
-				&& balance*arr[i] <= target
-			){            
+			if( verbose && i<arr.length ) {
+				//console.log( '   balance('+balance+')*arr['+i+']('+arr[i]+'):' + balance*arr[i] + ';  next:' + arr[i+1	] );
+				console.log( 
+					'   balance('+balance+') * arr['+i+']('+arr[i]+') = '
+					+ (balance*arr[i])
+					+' ... * arr['+(i+1)+']('+arr[i+1]+'): '
+					+ ( 
+						balance
+						*(arr[i]==undefined?1:arr[i])
+						*(arr[i+1]==undefined?1:arr[i+1])
+					) 
+					+ ';  r:' + r
+				);
+			}
+			while( 
+				i<arr.length 
+				&& (
+					// Original
+					//balance*arr[i] <= target
+
+					// try 2
+					//targetIsNegative 
+					/*arr[i+1]<0
+					? ( balance*arr[i]>target )
+					: ( balance*arr[i]<target )*/
+
+					// attempt 3
+					/*( 
+						arr[i+1]<0
+						? ( balance*arr[i]>target )
+						: ( balance*arr[i]<target )
+					)
+					|| ( 
+						arr[i+1]>=0
+						? ( balance*arr[i]<target )
+						: ( balance*arr[i]>target )
+					)*/		
+
+					// attempt 4
+					(
+						target>=0 
+						&& balance>=0 
+						&& (arr[i+1]==undefined?1:arr[i+1])>=0 
+						&& balance*arr[i]<=target
+					)
+					//||( balance*arr[i+1]<0 )
+					||( 
+						( balance 
+							//* (arr[i]==undefined?1:arr[i]) 
+						)
+						*(arr[i+1]==undefined?1:arr[i+1])
+						<=0 
+					)
+				)
+
+				// attempt 1.2
+				/*&& !(
+					( arr[i+1]>=0 && balance<0 ) //targetIsNegative
+					|| ( arr[i+1]<0 && balance>=0 ) //!targetIsNegative
+				)*/				
+			){
 
 				// Explicit state of variables (very time consuming)
 				if(verbose) console.log(
-					'   while (' + 'r:' + r + ')... balance:' + balance  + ' * '
+					'      while (' + 'r:' + r + ')... balance:' + balance  + ' * '
 					+ 'arr['+i+']:' + arr[i] + ' = ' + (balance*arr[i]) + '; '
 					+ 'i:[' + i + '];  '
 					+ ' iteration:' + results.iterations
 				);
 
-				// Push the value, because it fits
+				// If the first number fits, push it
+				if( results.iterations==0 && typeof arr[i-1]!='undefined') r.push(arr[i-1]);
 
-					// If the first number fits, push it
-					if( results.iterations==0 && typeof arr[i-1]!='undefined') r.push(arr[i-1]);
-
-					// Push the value being tested
-					r.push(arr[i]);
+				// Push the value being tested
+				r.push(arr[i]);
 
 				// Count the global number of iterations
 				results.iterations++;
@@ -176,14 +269,14 @@ function getFactors(target, arr, precision, verbose) {
 				// Try to fit the next value
 				recurse( startAt, balance*arr[i], r, i+1 );
 
-				// Remove the last item
+				// Remove the last item, to make space for a potential second combination
 				r.pop();
 
 				// Next
 				i++;
 
 			}//while
-		}//else
+		//}//else
 	}//recurse
 
 	// Start
@@ -191,19 +284,19 @@ function getFactors(target, arr, precision, verbose) {
 	for(j=0; j<arr.length; j++) { //arr.length
 		results.iterations=0;
 		recurse(j,target,[],0);
-		iteration+=results.iterations;
+		aux.iteration+=results.iterations;
 	}//for
 
 	// Gather results, last touches
 	results.precision = precision;
-	results.time = ( new Date() - start );
-	results.iterations=iteration;
+	results.time = ( new Date() - aux.start );
+	results.iterations=aux.iteration;
        
 	// Cleanup
 	r=null;
-	start=null;
 	verbose=null;
 	arrayHasFloat=null;
+	aux=null;
 
 	// Return
 	return( results );
