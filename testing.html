@@ -71,9 +71,10 @@
 
 
 	// Stress testing
+	console.log('\nStress test... finding multiples for each number 1 through 100 (in an array also containing numbers 1 through 100');
 	var arr=[],n=100,start=new Date();
-	for(var i=0;i<n;i++) arr.push(i+1);
-	for(var j=0;j<n;j++) console.log( getFactors(j,arr,false) );
+	for(var i=1;i<=n;i++) arr.push(i);
+	for(var j=1;j<=n;j++) console.log( getFactors(j,arr,false) );
 	console.log((new Date()-start)/1000.0);
 
  	</script>
