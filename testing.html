@@ -1,80 +1,73 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title>Factors v0.42 Testing Script</title>
+	<title>Factors v0.43 Testing Script</title>
 	<script src="factors.js"></script>
 	<script>
 
 	// Info
-	console.log('Factors v0.42 by Falconer & Loi, LLC\n\n')
-
-	//console.log( getFactors(9,[1.5,2,3,4,6],null,true) );
-	//console.log( getFactors(12,[12,3,1],null,true) );
-	//console.log( getFactors(9,[1.5,2,3],null,true) );
-	//console.log( getFactors(12,[-12,-3,-1,2,4,6],null,true) );
-	//console.log( getFactors(240,[2,3,4,5,6,7,8,9,10]) );
-
-	//console.log( getFactors(12,[-4,-3,0.5,2],null,false) );
-	console.log( getFactors(12,[-12,-3,-1,4],null,false) );
-	//console.log( getFactors(-7,[-1,6,7],null,false) );
-
-
-	// Basic tests
-	/*console.log('\nBasic tests...');
-	console.log( getFactors(6,[2,3,1.5,4,6],null,false) );
-	console.log( getFactors(6,[1,2,3,4,5,6],null,false) );
-	console.log( getFactors(6,[2,3,4,5,6],null,false) );
-	console.log( getFactors(8,[1,2,3,4,5,6],null,false) );
-	console.log( getFactors(9,[2,3,4,5,6],null,false) );
-	console.log( getFactors(9,[1,2,3,3,4,5,6],null,false) );
-	console.log( getFactors(10,[1.0,2,3,3,4,5,6],null,false) );
-	console.log( getFactors(24,[1,2,3,4,5,6,12],null,false) );
-	console.log( getFactors(24,[2,3,4,5,6,12],null,false) );
-	console.log( getFactors(240,[2,3,4,5,6,7,8,9,10]) );
-	console.log( getFactors(300,[2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24]) );
+	console.log('Factors v0.43 by Falconer & Loi, LLC\n\n')
 
 	// These will return null
 	console.log('\nInvalid parameter tests... ');
 	console.log( getFactors(null,[]) );
 	console.log( getFactors(null,[1]) );
-	console.log( getFactors(null,null) );
+	console.log( getFactors(null) );
 	console.log( getFactors(7,[]) );
 	console.log( getFactors(7,[7]) );
 	console.log( getFactors(7,[0,7]) );
+
+	// Basic tests
+	console.log('\nBasic tests...');
+	console.log( getFactors(9,[1.5,2,3,4,6],true) );
+	console.log( getFactors(12,[12,3,1],true) );
+	console.log( getFactors(9,[1.5,2,3],true) );
+	console.log( getFactors(12,[-12,-3,-1,2,4,6],true) );
+	console.log( getFactors(240,[2,3,4,5,6,7,8,9,10]) );
+	console.log( getFactors(12,[-4,-3,0.5,2],false) );
+	console.log( getFactors(12,[-12,-3,-1,4],false) );
+	console.log( getFactors(6,[2,3,1.5,4,6],false) );
+	console.log( getFactors(6,[1,2,3,4,5,6],false) );
+	console.log( getFactors(6,[2,3,4,5,6],false) );
+	console.log( getFactors(8,[1,2,3,4,5,6],false) );
+	console.log( getFactors(9,[2,3,4,5,6],false) );
+	console.log( getFactors(9,[1,2,3,3,4,5,6],false) );
+	console.log( getFactors(10,[1.0,2,3,3,4,5,6],false) );
+	console.log( getFactors(24,[1,2,3,4,5,6,12],false) );
+	console.log( getFactors(24,[2,3,4,5,6,12],false) );
+	console.log( getFactors(240,[2,3,4,5,6,7,8,9,10]) );
+	console.log( getFactors(300,[2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24]) );
 
 	// Strange cases
 	console.log('\nStrange cases... ');
 	console.log( getFactors(7,[1,2,3,4,5,6,7]) );
 	console.log( getFactors(7,[-1,1,2,3,4,5,6,7]) );
-
-	//console.log( getFactors(12,[2,-3,-1,4,6,-12],null,true) );
-	//console.log( getFactors(-7,[-1,6,7],null,true) );
-
-	console.log( getFactors(-12,[2,-3,0.5,4,6,-24.0],null,false) );
-	console.log( getFactors(12,[2,-3,-0.5,4,6,-24.0],null,false) );
+	console.log( getFactors(12,[2,-3,-1,4,6,-12],true) );
+	console.log( getFactors(-7,[-1,6,7],true) );
+	console.log( getFactors(-12,[2,-3,0.5,4,6,-24.0],false) );
+	console.log( getFactors(12,[2,-3,-0.5,4,6,-24.0],false) );
 	console.log( getFactors(7,[8,9,10,11,12,13]) );
 	console.log( getFactors(108,[8,9,10,11,12,13]) );
 	console.log( getFactors(1,[-1.0,1,-1,-2.3,3.3,+2.4,false,+2.3,'a',-0.5,-2],2,false) );
-	console.log( getFactors(0,[-1.0,1,'b',-2.3,false,+2.4,2.3],null,false) );
+	console.log( getFactors(0,[-1.0,1,'b',-2.3,false,+2.4,2.3],false) );
 
 	// Mixing strings, arrays and objects
 	console.log('\nMixing data types...');
-	console.log( getFactors(8,[false,'a',8.0],null,false) );
+	console.log( getFactors(8,[false,'a',8.0],false) );
 	console.log( getFactors(8.2,[0.2,'a',8.0],2,false) );
-	console.log( getFactors(8.3,[0.3,'a',8.0],null,false) );
-	console.log( getFactors(8,[false,'a',8.0,2,6,2.1,5.9,0.0,0],null,false) );
-	console.log( getFactors(8,[false,'a',8.0,2,6,2.1,4,5.9,0.0,-2,-4,0,-1E10,2E-10],null,false) );
-	console.log( getFactors(8,[false,'a',8.0,.1,[0.5,16],10],null,false) ); // Ignores array parameters
+	console.log( getFactors(8.3,[0.3,'a',8.0],false) );
+	console.log( getFactors(8,[false,'a',8.0,2,6,2.1,5.9,0.0,0],false) );
+	console.log( getFactors(8,[false,'a',8.0,2,6,2.1,4,5.9,0.0,-2,-4,0,-1E10,2E-10],false) );
+	console.log( getFactors(8,[false,'a',8.0,.1,[0.5,16],10],false) ); // Ignores array parameters
 
 	// Float numbers
 	console.log('\nFloat numbers tests...');
 	console.log( getFactors(1.6,[8,9,10,11,12,13,0.2]) );
-	console.log( getFactors(1.6,[0.2,8],null,false) );
+	console.log( getFactors(1.6,[0.2,8],false) );
 	console.log( getFactors(1.6,[0.2,8.0],undefined) );
 	console.log( getFactors(1.6,[0.2,8.0]) );
 	console.log( getFactors(1.62,[0.2,8.1]) );
 	console.log( getFactors(12.0,[2.0,6.0]) );
-	*/
  	</script>
 </head>
 <body>
