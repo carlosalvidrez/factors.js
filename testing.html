@@ -6,7 +6,7 @@
 	<script>
 
 	// Info
-	console.log('Factors v0.43 by Falconer & Loi, LLC\n\n')
+	console.log('Factors v0.43 by Falconer & Loi, LLC\n\n');
 
 	// These will return null
 	console.log('\nInvalid parameter tests... ');
@@ -58,7 +58,7 @@
 	console.log( getFactors(8.3,[0.3,'a',8.0],false) );
 	console.log( getFactors(8,[false,'a',8.0,2,6,2.1,5.9,0.0,0],false) );
 	console.log( getFactors(8,[false,'a',8.0,2,6,2.1,4,5.9,0.0,-2,-4,0,-1E10,2E-10],false) );
-	console.log( getFactors(8,[false,'a',8.0,.1,[0.5,16],10],false) ); // Ignores array parameters
+	console.log( getFactors(8,[false,'a',8.0,0.1,[0.5,16],10],false) ); // Ignores array parameters
 
 	// Float numbers
 	console.log('\nFloat numbers tests...');
@@ -68,6 +68,14 @@
 	console.log( getFactors(1.6,[0.2,8.0]) );
 	console.log( getFactors(1.62,[0.2,8.1]) );
 	console.log( getFactors(12.0,[2.0,6.0]) );
+
+
+	// Stress testing
+	var arr=[],n=100,start=new Date();
+	for(var i=0;i<n;i++) arr.push(i+1);
+	for(var j=0;j<n;j++) console.log( getFactors(j,arr,false) );
+	console.log((new Date()-start)/1000.0);
+
  	</script>
 </head>
 <body>
