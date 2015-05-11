@@ -1,12 +1,13 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title>Factors v0.43 Testing Script</title>
+	<title>Factors v0.44 Testing Script</title>
 	<script src="factors.min.js"></script>
 	<script>
 
 	// Info
-	console.log('Factors v0.43 by Falconer & Loi, LLC\n\n');
+	console.log('Factors v0.44 by Falconer & Loi, LLC\n\n');
+
 
 	// These will return null
 	console.log('\nInvalid parameter tests... ');
@@ -69,13 +70,12 @@
 	console.log( getFactors(1.62,[0.2,8.1]) );
 	console.log( getFactors(12.0,[2.0,6.0]) );
 
-
 	// Stress testing
 	console.log('\nStress test... finding multiples for each number 1 through 100 (in an array also containing numbers 1 through 100');
-	var arr=[],n=100,start=new Date();
+	var arr=[],start=1;n=100,startTime=new Date(),details=true;
 	for(var i=1;i<=n;i++) arr.push(i);
-	for(var j=1;j<=n;j++) console.log( getFactors(j,arr,false) );
-	console.log((new Date()-start)/1000.0);
+	for(var j=start;j<=n;j++) console.log( getFactors(j,arr,details) );
+	console.log((new Date()-startTime)/1000.0);
 
  	</script>
 </head>
@@ -83,6 +83,13 @@
  
 	To read the output of the performed tests,
 	open the browser's javascript console.
+	<br/>
+	<br/>
+
+	Chrome's <a href="https://developer.chrome.com/devtools/docs/console">console opening instructions.</a>
+	<br/>
+	<br/>
+
  
 </body>
 </html>
