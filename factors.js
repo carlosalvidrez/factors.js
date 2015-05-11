@@ -1,6 +1,6 @@
 /*
  
-	getFactors v0.43
+	getFactors v0.44
 	Released on 2015.05.09
 	By Falconer & Loi, LLC
 
@@ -99,6 +99,14 @@
 		console.log(getFactors(12,['a','b','c']));
 
 
+	Version history:
+	
+		v0.42 - Support for arrays containing negative numbers.
+		v0.43 - Support for negative targets.
+		v0.44 - Optimization.
+
+
+
 */
 function getFactors(target,arr,verbose) {
 
@@ -124,10 +132,9 @@ function getFactors(target,arr,verbose) {
 	for(var j=0;j<arr.length;j++) {
 		var i=j, r=[];
 		function recurse(v,i){
-			while( i<arr.length && v<Math.abs(target) ){
+			while( i<arr.length && (v*arr[i-1])<Math.abs(target) ){
 				iterations++;
 				r.push(arr[i]);
-				//if(verbose) console.log(r + '; v:'+v+'; i:'+i+'; arr[i]:'+arr[i]+'; iterations:'+iterations);
 				recurse(v*arr[i],i+1);
 				i++; 
 				r.pop();
