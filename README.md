@@ -1,5 +1,5 @@
 # factors
-Returns an object with a list of all cobminations of factors that multiply up to a given number, from a given array of numbers.
+Returns an object with a list of all cobminations of factors that multiply up to a given number, from a given array of numbers. Both JavaScript and Python versions of this library are provided.
 
 Parameters:
 
@@ -17,6 +17,8 @@ Parameters:
 		PLEASE NOTE that, on a large target or a large array
 		turning this flag on (true) takes much longer to
 		process.
+		
+		This is only applicable to the JavaScript version of the library for now.
 		
 		
 Output:
