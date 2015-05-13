@@ -49,4 +49,5 @@ def factors(target, arr):
         , "time": str(int(round(time.time()*1000))-start) + " ms"
         , "array": arr
         , "target": target
+        , "iterations": iterations
     }
